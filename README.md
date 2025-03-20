@@ -8,18 +8,18 @@ Players control an X-Wing fighter navigating through space, avoiding obstacles a
 
 ## Development Roadmap
 
-### Phase 1: Basic Setup ✅
+### Phase 1: Basic Setup 
 
-- Set up the 3D environment ✅
-- Implement basic X-Wing model and controls ✅
-- Create simple space background ✅
+- Set up the 3D environment 
+- Implement basic X-Wing model and controls 
+- Create simple space background 
 
-### Phase 2: Ship Movement ✅
+### Phase 2: Ship Movement 
 
-- Implement smooth flight controls ✅
-- Add roll, pitch, and yaw mechanics ✅
-- Implement camera following ✅
-- Basic laser firing capability ✅
+- Implement smooth flight controls 
+- Add roll, pitch, and yaw mechanics 
+- Implement camera following 
+- Basic laser firing capability 
 
 ### Phase 3: Death Star Environment
 
