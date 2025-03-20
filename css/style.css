@@ -1,0 +1,634 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #000;
+  font-family: "Arial", sans-serif;
+}
+
+canvas {
+  display: block;
+}
+
+#info {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  pointer-events: none;
+  z-index: 100;
+}
+
+#loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 24px;
+  z-index: 1000;
+  transition: opacity 0.5s;
+}
+
+#loading.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#controls-info {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  color: #fff;
+  z-index: 100;
+}
+
+.controls-panel {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #3498db;
+}
+
+.controls-panel h3 {
+  margin-top: 0;
+  color: #3498db;
+}
+
+.controls-panel p {
+  margin: 5px 0;
+}
+
+#speed-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  color: #fff;
+  z-index: 100;
+}
+
+.speed-indicator {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #3498db;
+  width: 200px;
+}
+
+.speed-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #3498db;
+}
+
+.speed-bar-container {
+  width: 100%;
+  height: 10px;
+  background-color: #333;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.speed-bar {
+  height: 100%;
+  width: 0%;
+  background-color: #2ecc71;
+  transition: width 0.2s, background-color 0.2s;
+}
+
+#distance-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  color: #fff;
+  z-index: 100;
+}
+
+.distance-indicator {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #3498db;
+  width: 200px;
+  text-align: center;
+}
+
+.distance-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #3498db;
+}
+
+#distance-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2ecc71;
+  transition: color 0.3s;
+}
+
+/* HP Bar for Death Star */
+#hp-panel {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  color: #fff;
+  z-index: 100;
+}
+
+.hp-indicator {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #e74c3c;
+  width: 250px;
+}
+
+.hp-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #e74c3c;
+  text-align: center;
+}
+
+.hp-bar-container {
+  width: 100%;
+  height: 15px;
+  background-color: #333;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.hp-bar {
+  height: 100%;
+  width: 100%;
+  background-color: #2ecc71;
+  transition: width 0.3s, background-color 0.3s;
+}
+
+#hp-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+
+/* Victory Container and Elements */
+#victory-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  border: 3px solid #f1c40f;
+  text-align: center;
+  z-index: 200;
+  width: 80%;
+  max-width: 600px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#victory-message {
+  position: relative;
+  color: #f1c40f;
+  font-size: 48px;
+  font-weight: bold;
+  font-family: "Orbitron", sans-serif;
+  margin-bottom: 30px;
+  text-align: center;
+  line-height: 1.2;
+  transform: none;
+  top: auto;
+  left: auto;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+#restart-button {
+  position: relative;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.5rem;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 80%;
+  max-width: 300px;
+  text-transform: uppercase;
+  transform: none;
+  top: auto;
+  left: auto;
+}
+
+#restart-button:hover {
+  background-color: rgba(52, 152, 219, 0.3);
+  box-shadow: 0 0 15px #3498db;
+}
+
+.hidden {
+  display: none;
+}
+
+#xwing-hp-panel {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+  color: white;
+  font-family: "Arial", sans-serif;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
+
+#xwing-hp-panel .hp-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#xwing-hp-panel .hp-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+#xwing-hp-panel .hp-bar-container {
+  width: 200px;
+  height: 15px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+#xwing-hp-panel .hp-bar {
+  height: 100%;
+  width: 100%;
+  background-color: #2ecc71;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+#xwing-hp-panel #xwing-hp-value {
+  font-size: 12px;
+}
+
+#combined-hp-panel {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  color: #fff;
+  z-index: 100;
+  font-family: "Arial", sans-serif;
+}
+
+.combined-hp-indicator {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #3498db;
+  width: 250px;
+}
+
+.hp-section {
+  margin-bottom: 10px;
+}
+
+.hp-section:last-child {
+  margin-bottom: 0;
+}
+
+.hp-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.xwing-label {
+  color: #2ecc71; /* Green for X-Wing */
+}
+
+.deathstar-label {
+  color: #e74c3c; /* Red for Death Star */
+}
+
+.hp-bar-container {
+  width: 100%;
+  height: 15px;
+  background-color: #333;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.hp-bar {
+  height: 100%;
+  width: 100%;
+  transition: width 0.3s, background-color 0.3s;
+}
+
+.xwing-hp-bar {
+  background-color: #2ecc71; /* Green for X-Wing */
+}
+
+.deathstar-hp-bar {
+  background-color: #e74c3c; /* Red for Death Star */
+}
+
+#xwing-hp-value,
+#hp-value {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+
+/* Remove the old separate panels */
+#hp-panel,
+#xwing-hp-panel {
+  display: none;
+}
+
+#game-over-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Orbitron", sans-serif;
+  font-size: 4rem;
+  color: #ff3333;
+  text-shadow: 0 0 10px #ff0000;
+  z-index: 1000;
+  text-align: center;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Start Screen Styles */
+#start-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.start-content {
+  text-align: center;
+  color: #fff;
+  max-width: 600px;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  border: 2px solid #3498db;
+  box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
+}
+
+.start-content h1 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 2.5rem;
+  color: #f1c40f;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+}
+
+.start-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+#start-button {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.5rem;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#start-button:hover {
+  background-color: rgba(52, 152, 219, 0.3);
+  box-shadow: 0 0 15px #3498db;
+  transform: scale(1.05);
+}
+
+/* Mobile Touch Controls */
+#mobile-controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35vh;
+  display: flex;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.control-area {
+  flex: 1;
+  height: 100%;
+  pointer-events: auto;
+}
+
+#joystick-area {
+  position: relative;
+}
+
+#buttons-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.control-button {
+  background-color: rgba(52, 152, 219, 0.3);
+  border: 2px solid #3498db;
+  border-radius: 50%;
+  color: white;
+  font-family: "Orbitron", sans-serif;
+  font-size: 16px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+  text-shadow: 0 0 5px #3498db;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#fire-button {
+  background-color: rgba(231, 76, 60, 0.3);
+  border-color: #e74c3c;
+  box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+  text-shadow: 0 0 5px #e74c3c;
+  font-size: 18px;
+  width: 100px;
+  height: 100px;
+}
+
+#speed-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Responsive UI adjustments */
+@media (max-width: 768px) {
+  #info {
+    font-size: 14px;
+    top: 5px;
+  }
+
+  #controls-info {
+    display: none; /* Hide keyboard controls on mobile */
+  }
+
+  .combined-hp-indicator {
+    width: 180px;
+    padding: 10px;
+  }
+
+  .speed-indicator {
+    width: 120px;
+    padding: 10px;
+  }
+
+  .distance-indicator {
+    width: 120px;
+    padding: 10px;
+  }
+
+  #start-screen .start-content {
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+  }
+
+  .start-content h1 {
+    font-size: 2rem;
+  }
+
+  .start-content p {
+    font-size: 1rem;
+  }
+
+  #start-button,
+  #restart-button {
+    font-size: 1.2rem;
+  }
+
+  #victory-message,
+  #game-over-message {
+    font-size: 3rem;
+  }
+
+  .control-button {
+    width: 60px;
+    height: 60px;
+    font-size: 12px;
+  }
+
+  #fire-button {
+    width: 80px;
+    height: 80px;
+    font-size: 16px;
+  }
+}
+
+/* Disable selection/highlighting */
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Landscape orientation warning */
+#orientation-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  flex-direction: column;
+}
+
+#orientation-warning .message {
+  color: white;
+  font-family: "Orbitron", sans-serif;
+  font-size: 24px;
+  text-align: center;
+  padding: 20px;
+}
+
+#orientation-warning .icon {
+  width: 100px;
+  height: 100px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 1h6v22H9z"/><path d="M20 5H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 12H4V7h16v10z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 20px;
+  animation: rotate 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@media (orientation: portrait) and (max-width: 768px) {
+  #orientation-warning {
+    display: flex;
+  }
+}
